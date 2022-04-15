@@ -13,19 +13,19 @@ const Event = Schema({
     required: true,
   },
   regstartdate: {
-    type: Date,
+    type: String,
     required: true,
   },
   regenddate: {
-    type: Date,
+    type: String,
     required: true,
   },
   eventstartdate: {
-    type: Date,
+    type: String,
     required: true
   },
   eventenddate: {
-    type: Date,
+    type: String,
     required: true,
   },
   venue: {
@@ -34,11 +34,11 @@ const Event = Schema({
   },
   discription: {
     type: String,
-    required: true,
+    default: "",
   },
   winnercriteria: {
     type: String,
-    required: true,
+    default: "",
   },
   scope: {
     type: String,

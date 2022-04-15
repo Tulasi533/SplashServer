@@ -68,18 +68,13 @@ router.route("/addEvent").post(middleware.checkToken, (req, res) => {
     organizer: req.body.organizer,
     winnercriteria: req.body.winnercriteria
   });
-  event.regstartdate instanceof Date; 
-  event.regenddate instanceof Date; 
-  event.eventstartdate instanceof Date; 
-  event.eventenddate instanceof Date; 
   event
     .save()
-    .then(() => {
-        console.log("Event added successfully");
-        res.status(200).json("ok");
+    .then((result) => {
+      res.json({ data: result["_id"]});
     })
     .catch((err) => {
-        res.status(403).json({ msg: err });
+      console.log(err), res.json({ err: err });
     });
 });
 

@@ -37,6 +37,13 @@ const app = express();
     "discription": "In this Datathon we will form teams, each team of 4members. Each team has to develop a model for the given data set to find y values of data set.",
     "scope": "VIT, SVECW",
     "organizer": "B.Sridevi, Associate Dean, Dept of CSE, VIT"
+
+    "adminid": "SPLASH01",
+    "password": "SPLASH01",
+    "name": "Anand Gona",
+    "mobile": "9948678654",
+    "email": "anandgona1234@gmail.com",
+    "college": "VIT"
 */
 // heroku link: https://aqueous-forest-17404.herokuapp.com/
 // mongodb://localhost:27017/AppDB
@@ -59,6 +66,9 @@ app.use("/faculty",facultyRoute);
 
 const eventRoute = require("./routes/event");
 app.use("/event", eventRoute);
+
+const adminRoute = require("./routes/admin");
+app.use("/admin", adminRoute);
 
 app.route("/").get((req, res) => res.json("This is my splash API"));
 
