@@ -3,7 +3,7 @@ const Event = require("../models/event.model");
 const middleware = require("../middleware");
 const multer = require("multer");
 const path = require("path");
-
+const date = require("date-and-time");
 
 const router = express.Router();
 
@@ -50,6 +50,43 @@ router.route("/add/coverImage/:id")
       return res.json(result);
     }
   );
+});
+
+router.route("/getUpcomingEvents").get((req, res) => {
+  Event.find({regstartdate: {$gt: date.format(new Date(), "DD-MMM-YYYY, hh:mm")}}, (err, result) => {
+    if (err) return res.json(err);
+    return res.json({ data: result });
+  });
+});
+
+router.route("/getOngoingEvents").get((req, res) => {
+  Event.find({
+    $and: [
+      {eventstartdate: {$lt: date.format(new Date(), "DD-MMM-YYYY, hh:mm")}},
+      {eventenddate: {$gt: date.format(new Date(), "DD-MMM-YYYY, hh:mm")}}
+    ]
+    }, (err, result) => {
+    if (err) return res.json(err);
+    return res.json({ data: result });
+  });
+});
+
+router.route("/getPastEvents").get((req, res) => {
+  Event.find({
+      $and: [
+        {eventenddate: {$lt: date.format(new Date(), "DD-MMM-YYYY, hh:mm")}}
+      ]
+    }, (err, result) => {
+    if (err) return res.json(err);
+    return res.json({ data: result });
+  });
+});
+
+router.route("/getAllEvents").get((req, res) => {
+  Event.find({}, (err, result) => {
+    if (err) return res.json(err);
+    return res.json({ data: result });
+  });
 });
 
 router.route("/addEvent").post(middleware.checkToken, (req, res) => {

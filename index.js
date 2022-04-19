@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const port = process.env.PORT || 5000;
 const app = express();
+const date = require("date-and-time");
 /*
     "regno": "18PA1A0533",
     "name": "Chinthalapudi Satya Rama Tulasi",
@@ -71,5 +72,17 @@ const adminRoute = require("./routes/admin");
 app.use("/admin", adminRoute);
 
 app.route("/").get((req, res) => res.json("This is my splash API"));
+
+t = "17-Apr-2022, 07:29";
+d = new Date(t);
+console.log(d.getDate());
+now = new Date();
+v = date.format(now, "DD-MMM-YYYY, hh:mm");
+v1 = new Date(v)
+f1 = t < v;
+console.log(f1);
+f = d < v1
+console.log(f);
+console.log(v);
 
 app.listen(port, () => console.log(`Welcome, you are listening to port ${port}`));
