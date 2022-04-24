@@ -54,7 +54,7 @@ router.route("/add/coverImage/:id")
 
 router.route("/getUpcomingEvents").get((req, res) => {
   Event.find({
-    regenddate: {$gte: date.format(new Date(), "DD-MMM-YYYY, hh:mm")}}, (err, result) => {
+    regenddate: {$gte: date.format(new Date(), "DD-MMM-YYYY, H:mm")}}, (err, result) => {
     if (err) return res.json(err);
     return res.json({ data: result, type: "upcoming"});
   });
@@ -63,8 +63,8 @@ router.route("/getUpcomingEvents").get((req, res) => {
 router.route("/getOngoingEvents").get((req, res) => {
   Event.find({
     $and: [
-      {eventstartdate: {$lt: date.format(new Date(), "DD-MMM-YYYY, hh:mm")}},
-      {eventenddate: {$gt: date.format(new Date(), "DD-MMM-YYYY, hh:mm")}}
+      {eventstartdate: {$lt: date.format(new Date(), "DD-MMM-YYYY, H:mm")}},
+      {eventenddate: {$gt: date.format(new Date(), "DD-MMM-YYYY, H:mm")}}
     ]
     }, (err, result) => {
     if (err) return res.json(err);
@@ -73,7 +73,7 @@ router.route("/getOngoingEvents").get((req, res) => {
 });
 
 router.route("/getPastEvents").get((req, res) => {
-  Event.find({eventenddate: {$lt: date.format(new Date(), "DD-MMM-YYYY, hh:mm")}}, (err, result) => {
+  Event.find({eventenddate: {$lt: date.format(new Date(), "DD-MMM-YYYY, H:mm")}}, (err, result) => {
     if (err) return res.json(err);
     return res.json({ data: result, type: "past" });
   });
